@@ -1,0 +1,32 @@
+
+#Q1:
+
+#avg_exam_score_by_study_and_extracurricula
+
+SELECT *
+FROM student_performance
+LIMIT 30;
+
+
+#Q2:
+#avg_exam_score_by_hours_studied_range
+
+select hours_studied, avg(exam_score) as avg_exam_score
+from student_performance
+where hours_studied > 10
+and Extracurricular_Activities = 'Yes'
+group by hours_studied
+order by hours_studied desc
+
+
+#Q3:
+#student_exam_ranking
+
+Select avg(exam_score) AS avg_exam_score,
+		(case when hours_studied between 1 and 5 then '1-5 hours'
+ 			 when hours_studied between 6 and 10 then '6-10 hours'
+             when hours_studied between 11 and 15 then '11-15 hours'
+             else '16+ hours' end) as hours_studied_range
+from student_performance
+group by hours_studied_range
+order by avg_exam_score desc
